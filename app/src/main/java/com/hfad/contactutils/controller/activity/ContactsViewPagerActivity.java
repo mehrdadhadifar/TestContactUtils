@@ -30,6 +30,7 @@ import com.hfad.contactutils.controller.fragment.LocalContactFragment;
 import com.hfad.contactutils.controller.fragment.LocalHistoryFragment;
 import com.hfad.contactutils.controller.utils.RandomString;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,9 +70,12 @@ public class ContactsViewPagerActivity extends AppCompatActivity {
     }
 
     private void addDataToDataBase() {
-        for (int i = 60; i < 600; i++) {
-            LocalHistoryObj localHistoryObj = new LocalHistoryObj(i, new Date(), "Sun", "14:23", String.valueOf(random.nextLong()), CallType.OUT, "1:04", "Caller Name");
-            LocalContactObj localContactObj = new LocalContactObj(new RandomString().nextString(), String.valueOf(random.nextLong()));
+        for (int i = 0; i < 1000; i++) {
+            String callerName = new RandomString(1, new SecureRandom(), true).nextString();
+            callerName += new RandomString(10).nextString();
+            LocalHistoryObj localHistoryObj = new LocalHistoryObj(i, new Date(), "Sun", "14:23", String.valueOf(random.nextLong()), CallType.OUT, "1:04", callerName);
+            String fullName = callerName + " " + new RandomString(12).nextString();
+            LocalContactObj localContactObj = new LocalContactObj(fullName, String.valueOf(random.nextLong()));
             localContactObj.setTotalDuration(random.nextInt(10) + ":" + random.nextInt(100));
 
 
@@ -82,6 +86,8 @@ public class ContactsViewPagerActivity extends AppCompatActivity {
                     localContactDAO.insertLocalContacts(localContactObj);
                     List<LocalContactObj> localContactObjs = localContactDAO.getLocalContacts();
                     Log.d(TAG, String.valueOf(localContactObjs.size()));
+                    List<LocalHistoryObj> localHistoryObjs = localHistoryDao.getLocalHistory();
+                    Log.d(TAG, String.valueOf(localHistoryObjs.size()));
                 }
             });
         }

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 
+import com.hfad.contactutils.controller.data.model.LocalContactObj;
 import com.hfad.contactutils.controller.data.model.LocalHistoryObj;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface LocalHistoryDao {
     void insertLocalHistory(LocalHistoryObj... localHistoryObjs);
 
     @Query("Select * from tblLocalHistory")
-    LiveData<List<LocalHistoryObj>> getLocalHistory();
+    LiveData<List<LocalHistoryObj>> getLocalHistoryLiveData();
 
     @Update
     void updateLocalHistory(LocalHistoryObj... localHistoryObj);
@@ -28,4 +29,8 @@ public interface LocalHistoryDao {
 
     @Query("Delete from tblLocalHistory")
     void deleteAllLocalHistory();
+
+    @Query("Select * from tbllocalhistory")
+    List<LocalHistoryObj> getLocalHistory();
+
 }

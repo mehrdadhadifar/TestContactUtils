@@ -19,7 +19,9 @@ public class RandomString {
 
     public static final String digits = "0123456789";
 
-    public static final String alphanum = upper + lower + digits;
+    //    public static final String alphanum = upper + lower + digits;
+    public static final String alphanum = lower;
+    public static final String upperAlphanum = upper;
 
     private final Random random;
 
@@ -55,5 +57,10 @@ public class RandomString {
     public RandomString() {
         this(21);
     }
+
+    public RandomString(int length, Random random, boolean upper) {
+        this(length, random, upperAlphanum);
+    }
+
 
 }
